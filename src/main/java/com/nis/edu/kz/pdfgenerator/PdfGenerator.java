@@ -50,29 +50,18 @@ public class PdfGenerator {
     }
 
     public void pdf() throws FileNotFoundException {
-//        Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-        Document document = new Document();
-
-        try {
-            // creation of the different writers
-
-            PdfWriter.getInstance(document, new FileOutputStream("sample.pdf", true));
-
-            // we add some meta information to the document
-//            document.addAuthor("Bruno Lowagie");
-//            document.addSubject("This is the result of a Test.");
-            // we open the document for writing
-            document.open();
-
-            document.add(new Paragraph("Hello world"));
-        } catch (DocumentException de) {
-            System.err.println(de.getMessage());
-        }
-        document.close();
+        
+        float cordX = 227;
+        float cordY = 200;
+        float height;
+        float width;
+        float calculatedCordX;
+        float calculatedCordY;
+        String textReplace= "text to replace";
 
         try {
             PdfReader pdfReader = new PdfReader("sample.pdf");
-            PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream("test.pdf"));
+            PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream("result.pdf"));
             BaseFont baseFont = BaseFont.createFont(
                     BaseFont.TIMES_ROMAN,
                     BaseFont.CP1252, BaseFont.NOT_EMBEDDED
@@ -84,8 +73,16 @@ public class PdfGenerator {
                 PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
                 pageContentByte.beginText();
                 pageContentByte.setFontAndSize(baseFont, 14);
-                pageContentByte.setTextMatrix(50, 740);
-                pageContentByte.showText("hello World");
+
+                
+                height = pdfReader.getPageSize(i).getHeight();
+                width = pdfReader.getPageSize(i).getWidth();
+                
+                calculatedCordX = width - cordX;
+                calculatedCordY = height - cordY;
+
+                pageContentByte.setTextMatrix(calculatedCordX, calculatedCordY);
+                pageContentByte.showText(textReplace);
                 pageContentByte.endText();
             }
             pdfStamper.close();
@@ -97,8 +94,8 @@ public class PdfGenerator {
         }
 
     }
-    
+
     public void json() {
-        
+
     }
 }
