@@ -11,8 +11,12 @@ import java.io.IOException;
  * @author toktarkhan_n
  */
 public class main {
+
     public static void main(String[] args) throws IOException {
-        PdfGenerator generator = new PdfGenerator();
-        generator.generate();
+//        PdfGenerator generator = new PdfGenerator();
+//        generator.generate();
+        System.out.println("___________");
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println("___________");
     }
 }
