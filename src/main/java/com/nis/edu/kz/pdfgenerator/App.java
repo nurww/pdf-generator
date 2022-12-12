@@ -52,29 +52,16 @@ public class App extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         Part jsonFilePart = req.getPart("jsonFileUploader");
-        JSONObject jsonObject = getJSONObject(jsonFilePart);
+//        JSONObject jsonObject = getJSONObject(jsonFilePart);
+        Path jsonFilePath = uploadFile(jsonFilePart);
         Part excelFilePart = req.getPart("excelFileUpload");
         Part pdfFilePart = req.getPart("pdfFileUpload");
         Path excelFilePath = uploadFile(excelFilePart);
         Path pdfFilePath = uploadFile(pdfFilePart);
 
-//        String path = ctx.getRealPath("/");
-//        System.out.println(path);
-//
-//        String path = application.getRealPath("/");
-
-        
-        
-        File file = new File(System.getProperty("user.dir"));
-        
-        File[] files = file.listFiles();
-        
-        for (File f : files) {
-            System.out.println(f.getAbsolutePath());
-        }
-
-        PdfGenerator generator = new PdfGenerator(excelFilePath, pdfFilePath, jsonObject);
-        generator.generate();
+//        PdfGenerator generator = new PdfGenerator(excelFilePath, pdfFilePath, jsonObject);
+        PdfGenerator generator = new PdfGenerator(excelFilePath, pdfFilePath, jsonFilePath);
+//        generator.generate();
 
     }
 
