@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="pdf-generator" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0f33e9e9-66c0-4a9b-9957-451ac5385129" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/source/sample_.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/BarcodeConfigurator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/pdf_generator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/pdf_generator_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-configuration.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom_http.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/FileName_1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/FileName_2.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/FileName_3.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/FileName_4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/FileName_5.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/results/compressed.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sample.json" beforeDir="false" afterPath="$PROJECT_DIR$/source/sample.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sample.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/source/sample.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/InputConfigurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/InputConfigurator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/PdfGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/PdfGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/compressed.tracemonkey-pldi-09.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/logopdf.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/modalstyle.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/sample.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/sample.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/scripts/checkStatus.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/scripts/fileUpload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/scripts/mainScript.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/scripts/pdfscript.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/scripts/qqqq.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/scripts/scriptcopy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/scripts/up-gen.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/InputConfigurator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/InputConfigurator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/PdfGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/PdfGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pdf-generator-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/pdf-generator-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pdf-generator.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/pdf-generator.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.xlsx" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="1b56b80a-33b7-436a-8fdf-4a5aa0ff0878" />
+        <option name="url" value="https://github.com/nurww/pdf-generator.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+        <option name="workOffline" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProjectId" id="2InVl4tBbicYwvKAdToOCgAEePe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/toktarkhan_n/Documents/NetBeansProjects/pdf-generator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\toktarkhan_n\Documents\NetBeansProjects\pdf-generator\source" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.nis.edu.kz.pdfgenerator" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn jar:jar" />
+      <command value="mvn assembly:single build" />
+      <command value="mvn clean" />
+      <command value="mvn assembly:single clean" />
+      <command value="mvn package" />
+      <command value="mvn assembly:single package" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.main">
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.nis.edu.kz.pdfgenerator.main" />
+      <module name="pdf-generator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nis.edu.kz.pdfgenerator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="pdf-generator.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/pdf-generator.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="a865449f-bb63-4e4e-a44a-bb6d2d6c96dc" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="2628" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.main" />
+        <item itemvalue="JAR Application.pdf-generator.jar" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f33e9e9-66c0-4a9b-9957-451ac5385129" name="Changes" comment="" />
+      <created>1670817482954</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1670817482954</updated>
+      <workItem from="1670817484412" duration="23950000" />
+      <workItem from="1671072105485" duration="2060000" />
+      <workItem from="1671597455042" duration="16498000" />
+      <workItem from="1671692780097" duration="7054000" />
+      <workItem from="1671709235787" duration="26000" />
+      <workItem from="1671709277853" duration="7747000" />
+      <workItem from="1671766095316" duration="7691000" />
+      <workItem from="1672037239255" duration="2384000" />
+      <workItem from="1673844990896" duration="87000" />
+      <workItem from="1675245449106" duration="5018000" />
+      <workItem from="1675270765602" duration="376000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
