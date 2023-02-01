@@ -3,7 +3,9 @@ com\nis\edu\kz\pdfgenerator\fileUploader\StorageService.class
 com\nis\edu\kz\pdfgenerator\fileUploader\StorageProperties.class
 com\nis\edu\kz\pdfgenerator\InputConfigurator.class
 com\nis\edu\kz\pdfgenerator\PdfGenerator.class
+com\nis\edu\kz\pdfgenerator\Configurator.class
 com\nis\edu\kz\pdfgenerator\fileUploader\StorageFileNotFoundException.class
+com\nis\edu\kz\pdfgenerator\BarcodeConfigurator.class
 com\nis\edu\kz\pdfgenerator\main.class
 com\nis\edu\kz\pdfgenerator\fileUploader\StorageException.class
 com\nis\edu\kz\pdfgenerator\fileUploader\Storage.class

@@ -8,7 +8,7 @@ package com.nis.edu.kz.pdfgenerator;
  *
  * @author toktarkhan_n
  */
-public class InputConfigurator {
+public class InputConfigurator extends Configurator {
 
     String fontFamily;
     float fontSize;

@@ -7,6 +7,7 @@ package com.nis.edu.kz.pdfgenerator;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.oned.Code39Writer;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
@@ -17,11 +18,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,6 +39,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import javax.imageio.ImageIO;
 
 import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 
@@ -98,18 +97,18 @@ public class PdfGenerator {
             XSSFSheet sheet = wb.getSheetAt(0);
             Row firstRow = sheet.getRow(0);
             int numberOfRows = sheet.getPhysicalNumberOfRows();
-            Map<String, List<InputConfigurator>> hashMap = new HashMap<>();
+            Map<String, List<Configurator>> hashMap = new HashMap<>();
 
             for (int i = 1; i < numberOfRows; i++) {
                 XSSFRow row = sheet.getRow(i);
                 Iterator<Cell> cellIterator = row.cellIterator();
-                ArrayList<InputConfigurator> list = new ArrayList<>();
+                ArrayList<Configurator> list = new ArrayList<>();
 
                 while (cellIterator.hasNext()) {
                     Cell c = cellIterator.next();
                     int columnIndex = c.getColumnIndex();
 
-                    InputConfigurator inputConfigurator = null;
+                    Configurator inputConfigurator = null;
                     if (firstRow.getCell(columnIndex) != null) {
                         inputConfigurator = json(firstRow.getCell(columnIndex).toString());
                     }
@@ -167,20 +166,52 @@ public class PdfGenerator {
         return cell.getStringCellValue();
     }
 
-    public BufferedImage generateBarCode(String text) {
+//    public BufferedImage generateBarCode(String text, int width, int height) {
+//
+////        String text = "*" + code + page + "*";
+////        BitMatrix matrix = getBitMatrix(config, code, page);
+////        BufferedImage image = MatrixToImageWriter.toBufferedImage(matrix);
+////        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+////        ImageIO.write(image, "png", baos);
+////        Image iTextImage = Image.getInstance(baos.toByteArray());
+////        iTextImage.setAbsolutePosition(235.0F, 15.0F);
+////        iTextImage.scaleAbsoluteWidth(200.0F);
+////        iTextImage.scaleAbsoluteHeight(40.0F);
+////        content.addImage(iTextImage);
+////        content.beginText();
+////        content.setFontAndSize(bf, 8.0F);
+////        content.showTextAligned(0, text, 310.0F, 5.0F, 0.0F);
+////        content.endText();
+//
+//
+//
+//
+//        Code128Writer barcodeWriter = new Code128Writer();
+//        BitMatrix bitMatrix = barcodeWriter.encode(text, BarcodeFormat.CODE_128, width, height);
+//        try {
+////            MatrixToImageWriter.writeToPath(bitMatrix, "png", Paths.get("barcode.png"));
+//
+//            BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            ImageIO.write(image, "png", baos);
+//            Image iTextImage = Image.getInstance(baos.toByteArray());
+//            iTextImage.setAbsolutePosition(235.0F, 15.0F);
+//            iTextImage.scaleAbsoluteWidth(200.0F);
+//            iTextImage.scaleAbsoluteHeight(40.0F);
+//            content.addImage(iTextImage);
+//            content.beginText();
+//            content.setFontAndSize(bf, 8.0F);
+//            content.showTextAligned(0, text, 310.0F, 5.0F, 0.0F);
+//            content.endText();
+//
+//            System.out.println("Barcode created!");
+//        } catch (Exception ignored) {
+//
+//        }
+//        return MatrixToImageWriter.toBufferedImage(bitMatrix);
+//    }
 
-        Code39Writer barcodeWriter = new Code39Writer();
-        BitMatrix bitMatrix = barcodeWriter.encode(text, BarcodeFormat.CODE_39, 318, 72);
-        try {
-            MatrixToImageWriter.writeToPath(bitMatrix, "png", Paths.get("barcode.png"));
-            System.out.println("Barcode created!");
-        } catch (Exception ignored) {
-
-        }
-        return MatrixToImageWriter.toBufferedImage(bitMatrix);
-    }
-
-    private void pdf(Map<String, List<InputConfigurator>> hashMap) {
+    private void pdf(Map<String, List<Configurator>> hashMap) {
         try {
 
             pdfFilesDirectory = Paths.get(pdfFilePath.getParent() + "/pdf_results_directory");
@@ -188,9 +219,9 @@ public class PdfGenerator {
                 Files.createDirectories(pdfFilesDirectory);
             }
 
-            for (Map.Entry<String, List<InputConfigurator>> entry : hashMap.entrySet()) {
+            for (Map.Entry<String, List<Configurator>> entry : hashMap.entrySet()) {
 
-                List<InputConfigurator> list = entry.getValue();
+                List<Configurator> list = entry.getValue();
                 String name = entry.getKey();
 
                 PdfReader pdfReader = new PdfReader(pdfFilePath.toString());
@@ -200,31 +231,71 @@ public class PdfGenerator {
                 try {
                     int pages = pdfReader.getNumberOfPages();
 
-                    generateBarCode("941124351730");
-
-                    Image img = Image.getInstance("source/barcode.png");
-                    float x = 200;
-                    float y = 350;
-                    img.setAbsolutePosition(x, y);
-
                     for (int i = 1; i <= pages; i++) {
                         PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
-                        pageContentByte.addImage(img);
                         pageContentByte.beginText();
 
-                        for (InputConfigurator configurator : list) {
-                            float calculatedCordX = configurator.getPositionX();
-                            float calculatedCordY = configurator.getPositionY();
-                            String fontFamily = configurator.getFontFamily();
-                            float fontSize = configurator.getFontSize();
-                            float height = pdfReader.getPageSize(i).getHeight();
-                            BaseFont baseFont = getFont(fontFamily);
+                        for (Configurator configurator : list) {
 
-                            calculatedCordY = height - calculatedCordY;
-                            String textReplace = configurator.getInputValue();
-                            pageContentByte.setFontAndSize(baseFont, fontSize);
-                            pageContentByte.setTextMatrix(calculatedCordX, calculatedCordY);
-                            pageContentByte.showText(textReplace);
+
+                            if (configurator.getClass() == InputConfigurator.class) {
+
+                                String fontFamily = ((InputConfigurator) configurator).getFontFamily();
+                                float fontSize = ((InputConfigurator) configurator).getFontSize();
+                                BaseFont baseFont = getFont(fontFamily);
+                                pageContentByte.setFontAndSize(baseFont, fontSize);
+
+                                float calculatedCordX = configurator.getPositionX();
+                                float calculatedCordY = configurator.getPositionY();
+                                float height = pdfReader.getPageSize(i).getHeight();
+
+                                calculatedCordY = height - calculatedCordY;
+                                String textReplace = configurator.getInputValue();
+                                pageContentByte.setTextMatrix(calculatedCordX, calculatedCordY);
+                                pageContentByte.showText(textReplace);
+                            } else if (configurator.getClass() == BarcodeConfigurator.class) {
+
+//                                Image img = Image.getInstance("source/barcode.png");
+                                String text = configurator.getInputValue();
+                                int width = ((BarcodeConfigurator) configurator).getWidth();
+                                int height = ((BarcodeConfigurator) configurator).getHeight();
+                                float x = configurator.getPositionX();
+                                float y = configurator.getPositionY();
+                                y = pdfReader.getPageSize(i).getHeight() - y;
+
+//                                generateBarCode(text, width, height);
+
+
+                                Code128Writer barcodeWriter = new Code128Writer();
+                                BitMatrix bitMatrix = barcodeWriter.encode(text, BarcodeFormat.CODE_128, width, height);
+                                try {
+//            MatrixToImageWriter.writeToPath(bitMatrix, "png", Paths.get("barcode.png"));
+
+
+                                    BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
+                                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                    ImageIO.write(image, "png", baos);
+                                    Image iTextImage = Image.getInstance(baos.toByteArray());
+                                    iTextImage.setAbsolutePosition(x, y);
+
+
+
+                                    pageContentByte.addImage(iTextImage);
+                                    BaseFont baseFont = BaseFont.createFont("/verdana.ttf", "Identity-H", BaseFont.EMBEDDED);
+                                    pageContentByte.setFontAndSize(baseFont, 8.0F);
+//                                    pageContentByte.showTextAligned(0, text, x + (width * 0.4F), y - (height * 0.3F), 0.0F);
+                                    pageContentByte.showTextAligned(0, text, x + (width * 0.4F), y - 10, 0.0F);
+
+
+                                    System.out.println("Barcode created!");
+                                } catch (Exception ignored) {
+
+                                }
+
+
+//                                img.setAbsolutePosition(x, y);
+//                                pageContentByte.addImage(img);
+                            }
                         }
 
                         pageContentByte.endText();
@@ -269,14 +340,12 @@ public class PdfGenerator {
         return baseFont;
     }
 
-    private InputConfigurator json(String columnName) throws IOException {
+    private Configurator json(String columnName) throws IOException {
 
         InputStream fileContent = Files.newInputStream(new File(jsonFilePath.toString()).toPath());
         byte[] jsonContent = fileContent.readAllBytes();
-
         String s = new String(jsonContent, StandardCharsets.UTF_8);
 
-        InputConfigurator inputConfigurator = new InputConfigurator();
         JSONObject jsonObject = new JSONObject(s);
         JSONArray jsonNames = jsonObject.names();
         JSONArray jsonArray = jsonObject.toJSONArray(jsonNames);
@@ -287,20 +356,39 @@ public class PdfGenerator {
         for (Object o : jsonArray) {
             JSONObject obj = (JSONObject) o;
             title = obj.getString("title");
+            String inputType = obj.getString("inputType");
+
             if (columnName.equals(title)) {
 
-                String fontFamily = obj.getString("fontFamily");
-                float fontSize = obj.getFloat("fontSize");
-                float positionX = obj.getJSONObject("body").getFloat("x");
-                float positionY = obj.getJSONObject("body").getFloat("y");
+                if (inputType.equals("text")) {
+                    InputConfigurator configurator = new InputConfigurator();
 
-                inputConfigurator.setTitle(title);
-                inputConfigurator.setFontFamily(fontFamily);
-                inputConfigurator.setFontSize(fontSize);
-                inputConfigurator.setPositionX(positionX);
-                inputConfigurator.setPositionY(positionY);
+                    String fontFamily = obj.getString("fontFamily");
+                    float fontSize = obj.getFloat("fontSize");
+                    float positionX = obj.getJSONObject("body").getFloat("x");
+                    float positionY = obj.getJSONObject("body").getFloat("y");
 
-                return inputConfigurator;
+                    configurator.setFontFamily(fontFamily);
+                    configurator.setFontSize(fontSize);
+                    configurator.setTitle(title);
+                    configurator.setPositionX(positionX);
+                    configurator.setPositionY(positionY);
+                    return configurator;
+                } else if (inputType.equals("barcode")) {
+                    BarcodeConfigurator configurator = new BarcodeConfigurator();
+
+                    int width = obj.getInt("width");
+                    int height = obj.getInt("height");
+                    float positionX = obj.getJSONObject("body").getFloat("x");
+                    float positionY = obj.getJSONObject("body").getFloat("y");
+                    configurator.setWidth(width);
+                    configurator.setHeight(height);
+                    configurator.setTitle(title);
+                    configurator.setPositionX(positionX);
+                    configurator.setPositionY(positionY);
+
+                    return configurator;
+                }
             }
         }
 

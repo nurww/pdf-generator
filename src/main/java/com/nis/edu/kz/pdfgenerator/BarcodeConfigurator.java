@@ -9,20 +9,20 @@ import java.util.Objects;
 /**
  * @author toktarkhan_n
  */
-public class BarcodeConfigurator {
+public class BarcodeConfigurator extends Configurator {
 
     String type;
     String title;
     float positionX;
     float positionY;
-    float width;
-    float height;
+    int width;
+    int height;
     String inputValue;
 
     public BarcodeConfigurator() {
     }
 
-    public BarcodeConfigurator(String title, float positionX, float positionY, float width, float height) {
+    public BarcodeConfigurator(String title, float positionX, float positionY, int width, int height) {
         this.title = title;
         this.positionX = positionX;
         this.positionY = positionY;
@@ -70,19 +70,19 @@ public class BarcodeConfigurator {
         this.type = type;
     }
 
-    public float getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(float width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

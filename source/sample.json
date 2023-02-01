@@ -2,6 +2,7 @@
   "29458": {
     "_id": "29458",
     "title": "Год",
+    "inputType":  "text",
     "body": {
       "x": 74,
       "y": 267
@@ -12,7 +13,7 @@
   "36650": {
     "_id": "36650",
     "title": "Класс",
-    "type":  "Text",
+    "inputType": "text",
     "body": {
       "x": 74,
       "y": 304
@@ -20,10 +21,21 @@
     "fontSize": "22",
     "fontFamily": "Verdana"
   },
+  "4323": {
+    "_id": "4323",
+    "title": "barcode",
+    "inputType":  "barcode",
+    "body": {
+      "x": 74,
+      "y": 604
+    },
+    "width": 100,
+    "height": 35
+  },
   "43292": {
     "_id": "43292",
     "title": "School",
-    "type":  "Barcode",
+    "inputType":  "text",
     "body": {
       "x": 74,
       "y": 285
@@ -34,6 +46,7 @@
   "59625": {
     "_id": "59625",
     "title": "Name",
+    "inputType":  "text",
     "body": {
       "x": 253,
       "y": 103
@@ -44,6 +57,7 @@
   "76898": {
     "_id": "76898",
     "title": "Фамилия",
+    "inputType":  "text",
     "body": {
       "x": 352,
       "y": 105
@@ -54,6 +68,7 @@
   "321321": {
     "_id": "321321",
     "title": "Тест",
+    "inputType":  "text",
     "body": {
       "x": 352,
       "y": 305
