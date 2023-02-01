@@ -1,0 +1,65 @@
+{
+  "29458": {
+    "_id": "29458",
+    "title": "Год",
+    "body": {
+      "x": 74,
+      "y": 267
+    },
+    "fontSize": "22",
+    "fontFamily": "Arial"
+  },
+  "36650": {
+    "_id": "36650",
+    "title": "Класс",
+    "type":  "Text",
+    "body": {
+      "x": 74,
+      "y": 304
+    },
+    "fontSize": "22",
+    "fontFamily": "Verdana"
+  },
+  "43292": {
+    "_id": "43292",
+    "title": "School",
+    "type":  "Barcode",
+    "body": {
+      "x": 74,
+      "y": 285
+    },
+    "fontSize": "22",
+    "fontFamily": "Tahoma"
+  },
+  "59625": {
+    "_id": "59625",
+    "title": "Name",
+    "body": {
+      "x": 253,
+      "y": 103
+    },
+    "fontSize": "22",
+    "fontFamily": "Times New Roman"
+  },
+  "76898": {
+    "_id": "76898",
+    "title": "Фамилия",
+    "body": {
+      "x": 352,
+      "y": 105
+    },
+    "fontSize": "33",
+    "fontFamily": "Trebuchet MS"
+  },
+  "321321": {
+    "_id": "321321",
+    "title": "Тест",
+    "body": {
+      "x": 352,
+      "y": 305
+    },
+    "fontSize": "33",
+    "fontFamily": "Trebuchet MS"
+  }
+}
+

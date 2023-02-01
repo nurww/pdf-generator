@@ -4,18 +4,25 @@
  */
 package com.nis.edu.kz.pdfgenerator;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.oned.Code39Writer;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
-import com.nis.edu.kz.pdfgenerator.exceptions.CellIsNullException;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,16 +33,19 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
+
 /**
- *
  * @author toktarkhan_n
  */
 public class PdfGenerator {
@@ -50,7 +60,6 @@ public class PdfGenerator {
     }
 
     public PdfGenerator(Path dirName, Path excelFilePath, Path pdfFilePath, Path jsonFilePath) {
-        System.out.println("WE ARE AT CONSTRUCTOR");
         this.excelFilePath = excelFilePath;
         this.pdfFilePath = pdfFilePath;
         this.jsonFilePath = jsonFilePath;
@@ -63,13 +72,7 @@ public class PdfGenerator {
         this.jsonFilePath = jsonFilePath;
     }
 
-//    public PdfGenerator(Path excelFilePath, Path pdfFilePath, JSONObject jsonObject) {
-//        this.excelFilePath = excelFilePath;
-//        this.pdfFilePath = pdfFilePath;
-//        this.jsonFilePath = jsonFilePath;
-//    }
     public void generate() throws IOException {
-        System.out.println("in generator");
         excel();
 
     }
@@ -90,42 +93,40 @@ public class PdfGenerator {
 
         FileInputStream file = null;
         try {
-//           ENCODING charset
-            file = new FileInputStream(new File(excelFilePath.toString()));
+            file = new FileInputStream(excelFilePath.toString());
             XSSFWorkbook wb = new XSSFWorkbook(file);
             XSSFSheet sheet = wb.getSheetAt(0);
-            XSSFCell cell;
             Row firstRow = sheet.getRow(0);
             int numberOfRows = sheet.getPhysicalNumberOfRows();
-            Map<String, List<InputConfigurator>> hashMap = new HashMap();
-
-            String fileName = sheet.getRow(0).getCell(0).toString();
+            Map<String, List<InputConfigurator>> hashMap = new HashMap<>();
 
             for (int i = 1; i < numberOfRows; i++) {
                 XSSFRow row = sheet.getRow(i);
-                if (isEmptyRow(row)) {
-                    continue;
-                }
-                ArrayList<InputConfigurator> list = new ArrayList();
-                for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
-                    cell = sheet.getRow(i).getCell(j, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                Iterator<Cell> cellIterator = row.cellIterator();
+                ArrayList<InputConfigurator> list = new ArrayList<>();
 
-                    if (cell.toString().equals("")) {
-                        String message = "cell " + cell.getAddress() + " is empty";
-                        throw new CellIsNullException(message);
+                while (cellIterator.hasNext()) {
+                    Cell c = cellIterator.next();
+                    int columnIndex = c.getColumnIndex();
+
+                    InputConfigurator inputConfigurator = null;
+                    if (firstRow.getCell(columnIndex) != null) {
+                        inputConfigurator = json(firstRow.getCell(columnIndex).toString());
                     }
-                    InputConfigurator inputConfigurator = json(firstRow.getCell(j).toString());
-                    inputConfigurator.setInputValue(cell.toString());
-                    list.add(inputConfigurator);
+
+                    if (inputConfigurator != null) {
+                        String cellValue = getTextFrom(i, columnIndex, sheet);
+                        inputConfigurator.setInputValue(cellValue);
+                        list.add(inputConfigurator);
+                    }
                 }
-                hashMap.put(fileName + "_" + i, list);
+
+                String numString = getFileName(i);
+                hashMap.put(numString, list);
 
             }
             pdf(hashMap);
             zipFiles();
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,22 +142,42 @@ public class PdfGenerator {
 
     }
 
-    public boolean isEmptyRow(XSSFRow row) {
-        boolean isEmpty = false;
+    public String getFileName(int i) {
+        StringBuilder numString = new StringBuilder("00000");
+        int numStart = numString.length() - String.valueOf(i).length();
+        numString.replace(numStart, numString.length(), String.valueOf(i));
 
-        if (row == null) {
-            isEmpty = true;
-            return isEmpty;
+        return String.valueOf(numString);
+    }
+
+    private static String getTextFrom(int r, int c, XSSFSheet sheet) {
+        Row row = sheet.getRow(r);
+        Cell cell = row.getCell(c);
+
+        if (cell == null) {
+            return "";
         }
-        for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
-            XSSFCell cell = row.getCell(j, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            isEmpty = cell.toString().equals("");
-            if (isEmpty == true) {
-                return isEmpty;
-            }
+
+        CellType cellType = cell.getCellType();
+        DataFormatter dataFormatter = new DataFormatter();
+
+        if (cellType.equals(NUMERIC)) {
+            return dataFormatter.formatCellValue(cell);
+        }
+        return cell.getStringCellValue();
+    }
+
+    public BufferedImage generateBarCode(String text) {
+
+        Code39Writer barcodeWriter = new Code39Writer();
+        BitMatrix bitMatrix = barcodeWriter.encode(text, BarcodeFormat.CODE_39, 318, 72);
+        try {
+            MatrixToImageWriter.writeToPath(bitMatrix, "png", Paths.get("barcode.png"));
+            System.out.println("Barcode created!");
+        } catch (Exception ignored) {
 
         }
-        return isEmpty;
+        return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 
     private void pdf(Map<String, List<InputConfigurator>> hashMap) {
@@ -173,39 +194,35 @@ public class PdfGenerator {
                 String name = entry.getKey();
 
                 PdfReader pdfReader = new PdfReader(pdfFilePath.toString());
-                PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(pdfFilesDirectory + "/" + name + ".pdf"));
-                System.out.println(name + ".pdf");
 
-                BaseFont baseFont = BaseFont.createFont("/timesnewromanpsmt.ttf", "Identity-H", BaseFont.EMBEDDED);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, Files.newOutputStream(Paths.get(pdfFilesDirectory + "/" + name + ".pdf")));
 
                 try {
-
                     int pages = pdfReader.getNumberOfPages();
+
+                    generateBarCode("941124351730");
+
+                    Image img = Image.getInstance("source/barcode.png");
+                    float x = 200;
+                    float y = 350;
+                    img.setAbsolutePosition(x, y);
 
                     for (int i = 1; i <= pages; i++) {
                         PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
+                        pageContentByte.addImage(img);
                         pageContentByte.beginText();
 
                         for (InputConfigurator configurator : list) {
-                            float cordX = (float) (Float.parseFloat(configurator.getPositionX()) / 1.2);
-                            float cordY = (float) (Float.parseFloat(configurator.getPositionY()) / 1.2);
+                            float calculatedCordX = configurator.getPositionX();
+                            float calculatedCordY = configurator.getPositionY();
                             String fontFamily = configurator.getFontFamily();
-                            String fontSize = configurator.getFontSize();
-                            String title = configurator.getTitle();
-                            float height;
-                            float width;
-                            float calculatedCordX;
-                            float calculatedCordY;
+                            float fontSize = configurator.getFontSize();
+                            float height = pdfReader.getPageSize(i).getHeight();
+                            BaseFont baseFont = getFont(fontFamily);
+
+                            calculatedCordY = height - calculatedCordY;
                             String textReplace = configurator.getInputValue();
-
-                            pageContentByte.setFontAndSize(baseFont, 14);
-
-                            height = pdfReader.getPageSize(i).getHeight();
-                            width = pdfReader.getPageSize(i).getWidth();
-
-                            calculatedCordX = cordX;
-                            calculatedCordY = height - cordY;
-
+                            pageContentByte.setFontAndSize(baseFont, fontSize);
                             pageContentByte.setTextMatrix(calculatedCordX, calculatedCordY);
                             pageContentByte.showText(textReplace);
                         }
@@ -213,61 +230,84 @@ public class PdfGenerator {
                         pageContentByte.endText();
                     }
                     pdfStamper.close();
-                    System.out.println("Pdf modified Succedfully");
 
                 } catch (Exception e) {
                     e.printStackTrace();
 
                 }
             }
-        } catch (IOException ex) {
+            System.out.println("Pdf generated Successfully");
+        } catch (IOException | DocumentException ex) {
             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
 
-        } catch (DocumentException ex) {
-            Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private BaseFont getFont(String fontFamily) throws DocumentException, IOException {
+        BaseFont baseFont = BaseFont.createFont("/timesnewromanpsmt.ttf", "Identity-H", BaseFont.EMBEDDED);
+        switch (fontFamily) {
+            case ("Arial"):
+                baseFont = BaseFont.createFont("/arial.ttf", "Identity-H", BaseFont.EMBEDDED);
+                break;
+            case ("Verdana"):
+                baseFont = BaseFont.createFont("/verdana.ttf", "Identity-H", BaseFont.EMBEDDED);
+                break;
+            case ("Tahoma"):
+                baseFont = BaseFont.createFont("/tahoma.ttf", "Identity-H", BaseFont.EMBEDDED);
+                break;
+            case ("Georgia"):
+                baseFont = BaseFont.createFont("/georgia.ttf", "Identity-H", BaseFont.EMBEDDED);
+                break;
+            case ("Trebuchet MS"):
+                baseFont = BaseFont.createFont("/trebuc.ttf", "Identity-H", BaseFont.EMBEDDED);
+                break;
+            default:
+                baseFont = BaseFont.createFont("/timesnewromanpsmt.ttf", "Identity-H", BaseFont.EMBEDDED);
+                break;
+        }
+        return baseFont;
     }
 
     private InputConfigurator json(String columnName) throws IOException {
 
-//        InputStream filecontent = jsonPart.getInputStream();
-        InputStream fileContent = new FileInputStream(new File(jsonFilePath.toString()));
-        StringBuilder sb = new StringBuilder();
+        InputStream fileContent = Files.newInputStream(new File(jsonFilePath.toString()).toPath());
         byte[] jsonContent = fileContent.readAllBytes();
 
-        for (byte b : jsonContent) {
-            sb.append((char) b);
-        }
+        String s = new String(jsonContent, StandardCharsets.UTF_8);
 
         InputConfigurator inputConfigurator = new InputConfigurator();
-        JSONObject jsonObject = new JSONObject(sb.toString());
+        JSONObject jsonObject = new JSONObject(s);
         JSONArray jsonNames = jsonObject.names();
         JSONArray jsonArray = jsonObject.toJSONArray(jsonNames);
 
-        for (Iterator<Object> it = jsonArray.iterator(); it.hasNext();) {
-            JSONObject obj = (JSONObject) it.next();
-            if (columnName.equals(obj.getString("title"))) {
-                String fontFamily = obj.getString("fontFamily");
-                String fontSize = obj.getString("fontSize");
-                String title = obj.getString("title");
-                int positionX = obj.getJSONObject("body").getInt("x");
-                int positionY = obj.getJSONObject("body").getInt("y");
+//        handleAsText();
 
+        String title;
+        for (Object o : jsonArray) {
+            JSONObject obj = (JSONObject) o;
+            title = obj.getString("title");
+            if (columnName.equals(title)) {
+
+                String fontFamily = obj.getString("fontFamily");
+                float fontSize = obj.getFloat("fontSize");
+                float positionX = obj.getJSONObject("body").getFloat("x");
+                float positionY = obj.getJSONObject("body").getFloat("y");
+
+                inputConfigurator.setTitle(title);
                 inputConfigurator.setFontFamily(fontFamily);
                 inputConfigurator.setFontSize(fontSize);
-                inputConfigurator.setTitle(title);
-                inputConfigurator.setPositionX(String.valueOf(positionX));
-                inputConfigurator.setPositionY(String.valueOf(positionY));
-            }
-        }
+                inputConfigurator.setPositionX(positionX);
+                inputConfigurator.setPositionY(positionY);
 
-        if (inputConfigurator.getTitle() != null) {
-            return inputConfigurator;
+                return inputConfigurator;
+            }
         }
 
         return null;
     }
+
+//    private inputConfigurator
 
     public void zipFiles() throws IOException {
 
@@ -290,7 +330,7 @@ public class PdfGenerator {
 
             byte[] bytes = new byte[1024];
             int length;
-            while((length = fis.read(bytes)) >= 0) {
+            while ((length = fis.read(bytes)) >= 0) {
                 zipOut.write(bytes, 0, length);
             }
             fis.close();
@@ -298,5 +338,6 @@ public class PdfGenerator {
 
         zipOut.close();
         fos.close();
+        System.out.println(".zip archival created Successfully");
     }
 }

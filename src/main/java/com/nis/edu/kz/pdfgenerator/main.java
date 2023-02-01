@@ -8,37 +8,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 /**
- *
  * @author toktarkhan_n
  */
 public class main {
 
     public static void main(String[] args) throws IOException {
 
+        Path resultDir = Paths.get("source/resultDir");
+        Path pdfFilePath = Paths.get("source/sample.pdf");
+        Path excelFilePath = Paths.get("source/sample.xlsx");
+        Path jsonFilePath = Paths.get("source/sample.json");
 
-        Path resultDir = Paths.get(args[0]);
-        Path pdfFilePath = Paths.get(args[1]);
-        Path excelFilePath = Paths.get(args[2]);
-        Path jsonFilePath = Paths.get(args[3]);
+//        Path resultDir = Paths.get(args[0]);
+//        Path pdfFilePath = Paths.get(args[1]);
+//        Path excelFilePath = Paths.get(args[2]);
+//        Path jsonFilePath = Paths.get(args[3]);
         if (!Files.exists(Files.createDirectories(resultDir))) {
             Files.createDirectories(resultDir);
         }
-
-//        sourceDir = Paths.get("source/results");
-//        pdfFilePath = Paths.get("source/sample.pdf");
-//        excelFilePath = Paths.get("source/sample.xlsx");
-//        jsonFilePath = Paths.get("source/sample.json");
-//        if (!Files.exists(Files.createDirectories(sourceDir))) {
-//            Files.createDirectories(sourceDir);
-//        }
-
-//
-        System.out.println(excelFilePath);
-        System.out.println(pdfFilePath);
-        System.out.println(jsonFilePath);
 
         PdfGenerator generator = new PdfGenerator(resultDir, excelFilePath, pdfFilePath, jsonFilePath);
         generator.generate();

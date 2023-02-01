@@ -9,5 +9,8 @@
         <module name="pdf-generator" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pdf-generator" target="9" />
+    </bytecodeTargetLevel>
   </component>
 </project>

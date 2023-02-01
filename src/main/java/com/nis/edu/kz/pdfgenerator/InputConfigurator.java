@@ -11,16 +11,16 @@ package com.nis.edu.kz.pdfgenerator;
 public class InputConfigurator {
 
     String fontFamily;
-    String fontSize;
+    float fontSize;
     String title;
-    String positionX;
-    String positionY;
+    float positionX;
+    float positionY;
     String inputValue;
 
     public InputConfigurator() {
     }
 
-    public InputConfigurator(String fontFamily, String fontSize, String title, String positionX, String positionY) {
+    public InputConfigurator(String fontFamily, float fontSize, String title, float positionX, float positionY) {
         this.fontFamily = fontFamily;
         this.fontSize = fontSize;
         this.title = title;
@@ -44,11 +44,11 @@ public class InputConfigurator {
         this.fontFamily = fontFamily;
     }
 
-    public String getFontSize() {
+    public float getFontSize() {
         return fontSize;
     }
 
-    public void setFontSize(String fontSize) {
+    public void setFontSize(float fontSize) {
         this.fontSize = fontSize;
     }
 
@@ -60,19 +60,19 @@ public class InputConfigurator {
         this.title = title;
     }
 
-    public String getPositionX() {
+    public float getPositionX() {
         return positionX;
     }
 
-    public void setPositionX(String positionX) {
+    public void setPositionX(float positionX) {
         this.positionX = positionX;
     }
 
-    public String getPositionY() {
+    public float getPositionY() {
         return positionY;
     }
 
-    public void setPositionY(String positionY) {
+    public void setPositionY(float positionY) {
         this.positionY = positionY;
     }
 
