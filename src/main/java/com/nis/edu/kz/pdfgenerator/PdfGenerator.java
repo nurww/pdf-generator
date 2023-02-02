@@ -8,10 +8,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.oned.Code128Writer;
-import com.google.zxing.oned.Code39Writer;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfReader;
@@ -39,6 +37,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import javax.imageio.ImageIO;
 
@@ -109,15 +108,33 @@ public class PdfGenerator {
                     int columnIndex = c.getColumnIndex();
 
                     Configurator inputConfigurator = null;
+
+                    Stream<Configurator> stream = null;
+
                     if (firstRow.getCell(columnIndex) != null) {
-                        inputConfigurator = json(firstRow.getCell(columnIndex).toString());
+//                        inputConfigurator = json(firstRow.getCell(columnIndex).toString());
+
+                        stream = json(firstRow.getCell(columnIndex).toString());
+
+                        Object[] obj = stream.toArray();
+
+
+                            for (Object conf : obj) {
+                                if (conf != null) {
+                                    String cellValue = getTextFrom(i, columnIndex, sheet);
+                                    ((Configurator) conf).setInputValue(cellValue);
+                                    list.add((Configurator) conf);
+                                }
+                            }
+
+
                     }
 
-                    if (inputConfigurator != null) {
-                        String cellValue = getTextFrom(i, columnIndex, sheet);
-                        inputConfigurator.setInputValue(cellValue);
-                        list.add(inputConfigurator);
-                    }
+//                    if (inputConfigurator != null) {
+//                        String cellValue = getTextFrom(i, columnIndex, sheet);
+//                        inputConfigurator.setInputValue(cellValue);
+//                        list.add(inputConfigurator);
+//                    }
                 }
 
                 String numString = getFileName(i);
@@ -165,51 +182,6 @@ public class PdfGenerator {
         }
         return cell.getStringCellValue();
     }
-
-//    public BufferedImage generateBarCode(String text, int width, int height) {
-//
-////        String text = "*" + code + page + "*";
-////        BitMatrix matrix = getBitMatrix(config, code, page);
-////        BufferedImage image = MatrixToImageWriter.toBufferedImage(matrix);
-////        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-////        ImageIO.write(image, "png", baos);
-////        Image iTextImage = Image.getInstance(baos.toByteArray());
-////        iTextImage.setAbsolutePosition(235.0F, 15.0F);
-////        iTextImage.scaleAbsoluteWidth(200.0F);
-////        iTextImage.scaleAbsoluteHeight(40.0F);
-////        content.addImage(iTextImage);
-////        content.beginText();
-////        content.setFontAndSize(bf, 8.0F);
-////        content.showTextAligned(0, text, 310.0F, 5.0F, 0.0F);
-////        content.endText();
-//
-//
-//
-//
-//        Code128Writer barcodeWriter = new Code128Writer();
-//        BitMatrix bitMatrix = barcodeWriter.encode(text, BarcodeFormat.CODE_128, width, height);
-//        try {
-////            MatrixToImageWriter.writeToPath(bitMatrix, "png", Paths.get("barcode.png"));
-//
-//            BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            ImageIO.write(image, "png", baos);
-//            Image iTextImage = Image.getInstance(baos.toByteArray());
-//            iTextImage.setAbsolutePosition(235.0F, 15.0F);
-//            iTextImage.scaleAbsoluteWidth(200.0F);
-//            iTextImage.scaleAbsoluteHeight(40.0F);
-//            content.addImage(iTextImage);
-//            content.beginText();
-//            content.setFontAndSize(bf, 8.0F);
-//            content.showTextAligned(0, text, 310.0F, 5.0F, 0.0F);
-//            content.endText();
-//
-//            System.out.println("Barcode created!");
-//        } catch (Exception ignored) {
-//
-//        }
-//        return MatrixToImageWriter.toBufferedImage(bitMatrix);
-//    }
 
     private void pdf(Map<String, List<Configurator>> hashMap) {
         try {
@@ -279,7 +251,6 @@ public class PdfGenerator {
                                     iTextImage.setAbsolutePosition(x, y);
 
 
-
                                     pageContentByte.addImage(iTextImage);
                                     BaseFont baseFont = BaseFont.createFont("/verdana.ttf", "Identity-H", BaseFont.EMBEDDED);
                                     pageContentByte.setFontAndSize(baseFont, 8.0F);
@@ -340,7 +311,9 @@ public class PdfGenerator {
         return baseFont;
     }
 
-    private Configurator json(String columnName) throws IOException {
+    private Stream<Configurator> json(String columnName) throws IOException {
+        InputConfigurator inputConfigurator = null;
+        BarcodeConfigurator barcodeConfigurator = null;
 
         InputStream fileContent = Files.newInputStream(new File(jsonFilePath.toString()).toPath());
         byte[] jsonContent = fileContent.readAllBytes();
@@ -350,49 +323,109 @@ public class PdfGenerator {
         JSONArray jsonNames = jsonObject.names();
         JSONArray jsonArray = jsonObject.toJSONArray(jsonNames);
 
-//        handleAsText();
+        List<Object> list = jsonArray.toList();
+        Stream<Configurator> c = list.stream().filter(e -> e.toString().contains(columnName))
+                .map(e -> {
+                    HashMap<String, Object> map = (HashMap) e;
 
-        String title;
-        for (Object o : jsonArray) {
-            JSONObject obj = (JSONObject) o;
-            title = obj.getString("title");
-            String inputType = obj.getString("inputType");
+                    String title = (String) map.get("title");
+//                    System.out.println(title);
+                    String inputType = (String) map.get("inputType");
 
-            if (columnName.equals(title)) {
+                    if (columnName.equals(title)) {
 
-                if (inputType.equals("text")) {
-                    InputConfigurator configurator = new InputConfigurator();
+                        if (inputType.equals("text")) {
+                            InputConfigurator configurator = new InputConfigurator();
 
-                    String fontFamily = obj.getString("fontFamily");
-                    float fontSize = obj.getFloat("fontSize");
-                    float positionX = obj.getJSONObject("body").getFloat("x");
-                    float positionY = obj.getJSONObject("body").getFloat("y");
+                            String fontFamily = (String) map.get("fontFamily");
+                            float fontSize = Float.parseFloat((String) map.get("fontSize"));
+                            HashMap body = (HashMap) map.get("body");
+                            float positionX = Float.parseFloat(String.valueOf(body.get("x")));
+                            float positionY = Float.parseFloat(String.valueOf(body.get("y")));
 
-                    configurator.setFontFamily(fontFamily);
-                    configurator.setFontSize(fontSize);
-                    configurator.setTitle(title);
-                    configurator.setPositionX(positionX);
-                    configurator.setPositionY(positionY);
-                    return configurator;
-                } else if (inputType.equals("barcode")) {
-                    BarcodeConfigurator configurator = new BarcodeConfigurator();
+                            if(title.equals("Класс")) {
+                                System.out.println(positionX);
+                            }
 
-                    int width = obj.getInt("width");
-                    int height = obj.getInt("height");
-                    float positionX = obj.getJSONObject("body").getFloat("x");
-                    float positionY = obj.getJSONObject("body").getFloat("y");
-                    configurator.setWidth(width);
-                    configurator.setHeight(height);
-                    configurator.setTitle(title);
-                    configurator.setPositionX(positionX);
-                    configurator.setPositionY(positionY);
+                            configurator.setFontFamily(fontFamily);
+                            configurator.setFontSize(fontSize);
+                            configurator.setTitle(title);
+                            configurator.setPositionX(positionX);
+                            configurator.setPositionY(positionY);
+                            return configurator;
+                        } else if (inputType.equals("barcode")) {
+                            BarcodeConfigurator configurator = new BarcodeConfigurator();
 
-                    return configurator;
-                }
-            }
-        }
+                            int width = Integer.parseInt(map.get("width").toString());
+                            int height = Integer.parseInt(map.get("height").toString());
+                            HashMap body = (HashMap) map.get("body");
+                            float positionX = Float.parseFloat(String.valueOf(body.get("x")));
+                            float positionY = Float.parseFloat(String.valueOf(body.get("y")));
 
-        return null;
+                            configurator.setWidth(width);
+                            configurator.setHeight(height);
+                            configurator.setTitle(title);
+                            configurator.setPositionX(positionX);
+                            configurator.setPositionY(positionY);
+                            return configurator;
+                        }
+                    }
+                    return null;
+                });
+
+        return c;
+
+//        Object[] ss = c.toArray();
+//
+//        System.out.println(ss.length);
+//
+//        if(ss.length == 0) {
+//            return null;
+//        }
+//
+//        return (Configurator) ss[0];
+
+
+//        String title;
+////        for (Object o : jsonArray) {
+//            JSONObject obj = (JSONObject) o;
+//            title = obj.getString("title");
+//            String inputType = obj.getString("inputType");
+//
+//            if (columnName.equals(title)) {
+//
+//                if (inputType.equals("text")) {
+//                    InputConfigurator configurator = new InputConfigurator();
+//
+//                    String fontFamily = obj.getString("fontFamily");
+//                    float fontSize = obj.getFloat("fontSize");
+//                    float positionX = obj.getJSONObject("body").getFloat("x");
+//                    float positionY = obj.getJSONObject("body").getFloat("y");
+//
+//                    configurator.setFontFamily(fontFamily);
+//                    configurator.setFontSize(fontSize);
+//                    configurator.setTitle(title);
+//                    configurator.setPositionX(positionX);
+//                    configurator.setPositionY(positionY);
+//                    return configurator;
+//                } else if (inputType.equals("barcode")) {
+//                    BarcodeConfigurator configurator = new BarcodeConfigurator();
+//
+//                    int width = obj.getInt("width");
+//                    int height = obj.getInt("height");
+//                    float positionX = obj.getJSONObject("body").getFloat("x");
+//                    float positionY = obj.getJSONObject("body").getFloat("y");
+//                    configurator.setWidth(width);
+//                    configurator.setHeight(height);
+//                    configurator.setTitle(title);
+//                    configurator.setPositionX(positionX);
+//                    configurator.setPositionY(positionY);
+//
+//                    return configurator;
+//                }
+//            }
+////        }
+
     }
 
 //    private inputConfigurator

@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f33e9e9-66c0-4a9b-9957-451ac5385129" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/Configurator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/barcode.png" beforeDir="false" afterPath="$PROJECT_DIR$/barcode.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00001.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00001.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00002.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00002.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00003.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00003.pdf" afterDir="false" />
@@ -20,22 +18,11 @@
       <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00005.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00005.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00006.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00006.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/resultDir/compressed.zip" beforeDir="false" afterPath="$PROJECT_DIR$/source/resultDir/compressed.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/sample.json" beforeDir="false" afterPath="$PROJECT_DIR$/source/sample_old.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/sample.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/source/sample.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/sample_.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/BarcodeConfigurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/BarcodeConfigurator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/InputConfigurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/InputConfigurator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/sample.json" beforeDir="false" afterPath="$PROJECT_DIR$/source/sample.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/PdfGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/PdfGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/BarcodeConfigurator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/BarcodeConfigurator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/InputConfigurator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/InputConfigurator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/PdfGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/PdfGenerator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/pdf-generator-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/pdf-generator-jar-with-dependencies.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/pdf-generator.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/pdf-generator.jar" afterDir="false" />
     </list>
@@ -259,7 +246,7 @@
       <workItem from="1675245449106" duration="5018000" />
       <workItem from="1675270765602" duration="376000" />
       <workItem from="1675272025560" duration="4000" />
-      <workItem from="1675272034838" duration="13376000" />
+      <workItem from="1675272034838" duration="19860000" />
     </task>
     <servers />
   </component>

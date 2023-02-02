@@ -21,6 +21,17 @@
     "fontSize": "22",
     "fontFamily": "Verdana"
   },
+  "36655": {
+    "_id": "36655",
+    "title": "Класс",
+    "inputType": "text",
+    "body": {
+      "x": 174,
+      "y": 304
+    },
+    "fontSize": "22",
+    "fontFamily": "Verdana"
+  },
   "4323": {
     "_id": "4323",
     "title": "barcode",
