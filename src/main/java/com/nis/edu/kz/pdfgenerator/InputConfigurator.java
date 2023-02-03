@@ -16,16 +16,18 @@ public class InputConfigurator extends Configurator {
     float positionX;
     float positionY;
     String inputValue;
+    String align;
 
     public InputConfigurator() {
     }
 
-    public InputConfigurator(String fontFamily, float fontSize, String title, float positionX, float positionY) {
+    public InputConfigurator(String fontFamily, float fontSize, String title, float positionX, float positionY, String align) {
         this.fontFamily = fontFamily;
         this.fontSize = fontSize;
         this.title = title;
         this.positionX = positionX;
         this.positionY = positionY;
+        this.align = align;
     }
 
     public String getInputValue() {
@@ -74,6 +76,14 @@ public class InputConfigurator extends Configurator {
 
     public void setPositionY(float positionY) {
         this.positionY = positionY;
+    }
+
+    public String getAlign() {
+        return align;
+    }
+
+    public void setAlign(String align) {
+        this.align = align;
     }
 
     @Override
