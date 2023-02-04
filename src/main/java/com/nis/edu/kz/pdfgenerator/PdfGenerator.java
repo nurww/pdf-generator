@@ -227,6 +227,7 @@ public class PdfGenerator {
                                 pageContentByte.setTextMatrix(calculatedCordX, calculatedCordY);
 
                                 if (((InputConfigurator) configurator).getAlign().equals("center")) {
+                                    System.out.println(textReplace);
 
                                     pageContentByte.showTextAligned(PdfContentByte.ALIGN_CENTER, textReplace, calculatedCordX, calculatedCordY, 0.0F);
                                 } else {
@@ -383,6 +384,10 @@ public class PdfGenerator {
     }
 
     public void zipFiles() throws IOException {
+
+
+        
+
 
         List<File> pdfFileNames = new ArrayList<>();
 
