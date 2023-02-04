@@ -9,12 +9,10 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.oned.Code39Writer;
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.*;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -227,7 +225,6 @@ public class PdfGenerator {
                                 pageContentByte.setTextMatrix(calculatedCordX, calculatedCordY);
 
                                 if (((InputConfigurator) configurator).getAlign().equals("center")) {
-                                    System.out.println(textReplace);
 
                                     pageContentByte.showTextAligned(PdfContentByte.ALIGN_CENTER, textReplace, calculatedCordX, calculatedCordY, 0.0F);
                                 } else {
@@ -385,37 +382,134 @@ public class PdfGenerator {
 
     public void zipFiles() throws IOException {
 
-
-        
-
-
         List<File> pdfFileNames = new ArrayList<>();
+        List<InputStream> inputPdfList = new ArrayList<InputStream>();
+        OutputStream outputStream =
+                new FileOutputStream("source\\resultDir\\pdf_merged.pdf");
+
+
 
         Stream<Path> pdfFiles = Files.walk(pdfFilesDirectory);
         pdfFiles.forEach(f -> {
             if (!Files.isDirectory(f)) {
+
+
+                System.out.println(f.toFile());
+                try {
+                    inputPdfList.add(new FileInputStream(f.toFile()));
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+
                 pdfFileNames.add(f.toFile());
             }
         });
 
+        try {
+            mergePdfFiles(inputPdfList, outputStream);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
         final FileOutputStream fos = new FileOutputStream(dirName + "/compressed.zip");
         ZipOutputStream zipOut = new ZipOutputStream(fos);
 
-        for (File srcFile : pdfFileNames) {
-            FileInputStream fis = new FileInputStream(srcFile);
-            ZipEntry zipEntry = new ZipEntry(srcFile.getName());
-            zipOut.putNextEntry(zipEntry);
 
-            byte[] bytes = new byte[1024];
-            int length;
-            while ((length = fis.read(bytes)) >= 0) {
-                zipOut.write(bytes, 0, length);
-            }
-            fis.close();
+
+        FileInputStream fis = new FileInputStream(new File("source\\resultDir\\pdf_merged.pdf"));
+        ZipEntry zipEntry = new ZipEntry(new File("source\\resultDir\\pdf_merged.pdf").getName());
+        zipOut.putNextEntry(zipEntry);
+
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = fis.read(bytes)) >= 0) {
+            zipOut.write(bytes, 0, length);
         }
+        fis.close();
+
+
+
+//        for (File srcFile : pdfFileNames) {
+//            FileInputStream fis = new FileInputStream(srcFile);
+//            ZipEntry zipEntry = new ZipEntry(srcFile.getName());
+//            zipOut.putNextEntry(zipEntry);
+//
+//            byte[] bytes = new byte[1024];
+//            int length;
+//            while ((length = fis.read(bytes)) >= 0) {
+//                zipOut.write(bytes, 0, length);
+//            }
+//            fis.close();
+//        }
 
         zipOut.close();
         fos.close();
         System.out.println(".zip archival created Successfully");
+
+        System.out.println("source\\resultDir\\pdf_merged.pdf Merged PDF DONE");
     }
+
+
+
+    public void mergePdfFiles(List<InputStream> inputPdfList,
+                              OutputStream outputStream) throws Exception{
+
+        //Create document and pdfReader objects.
+        Document document = new Document();
+        List<PdfReader> readers =
+                new ArrayList<PdfReader>();
+        int totalPages = 0;
+
+        //Create pdf Iterator object using inputPdfList.
+        Iterator<InputStream> pdfIterator =
+                inputPdfList.iterator();
+
+        // Create reader list for the input pdf files.
+        while (pdfIterator.hasNext()) {
+            InputStream pdf = pdfIterator.next();
+            PdfReader pdfReader = new PdfReader(pdf);
+            readers.add(pdfReader);
+            totalPages = totalPages + pdfReader.getNumberOfPages();
+        }
+
+        // Create writer for the outputStream
+        PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+
+        //Open document.
+        document.open();
+
+        //Contain the pdf data.
+        PdfContentByte pageContentByte = writer.getDirectContent();
+
+        PdfImportedPage pdfImportedPage;
+        int currentPdfReaderPage = 1;
+        Iterator<PdfReader> iteratorPDFReader = readers.iterator();
+
+        // Iterate and process the reader list.
+        while (iteratorPDFReader.hasNext()) {
+            PdfReader pdfReader = iteratorPDFReader.next();
+            //Create page and add content.
+            while (currentPdfReaderPage <= pdfReader.getNumberOfPages()) {
+                document.newPage();
+                pdfImportedPage = writer.getImportedPage(
+                        pdfReader,currentPdfReaderPage);
+                pageContentByte.addTemplate(pdfImportedPage, 0, 0);
+                currentPdfReaderPage++;
+            }
+            currentPdfReaderPage = 1;
+        }
+
+
+        //Close document and outputStream.
+        outputStream.flush();
+        document.close();
+        outputStream.close();
+
+        System.out.println("Pdf files merged successfully.");
+    }
+
+
+
+
 }
