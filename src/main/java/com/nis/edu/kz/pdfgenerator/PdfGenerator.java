@@ -204,7 +204,6 @@ public class PdfGenerator {
 
                     for (int i = 1; i <= pages; i++) {
                         PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
-                        pageContentByte.beginText();
 
                         for (Configurator configurator : list) {
 
@@ -224,12 +223,14 @@ public class PdfGenerator {
                                 String textReplace = configurator.getInputValue();
                                 pageContentByte.setTextMatrix(calculatedCordX, calculatedCordY);
 
+                                pageContentByte.beginText();
                                 if (((InputConfigurator) configurator).getAlign().equals("center")) {
 
                                     pageContentByte.showTextAligned(PdfContentByte.ALIGN_CENTER, textReplace, calculatedCordX, calculatedCordY, 0.0F);
                                 } else {
                                     pageContentByte.showTextAligned(PdfContentByte.ALIGN_LEFT, textReplace, calculatedCordX, calculatedCordY, 0.0F);
                                 }
+                                pageContentByte.endText();
 
                             } else if (configurator.getClass() == BarcodeConfigurator.class) {
 
@@ -259,9 +260,11 @@ public class PdfGenerator {
                                     pageContentByte.addImage(iTextImage);
                                     BaseFont baseFont = BaseFont.createFont("/verdana.ttf", "Identity-H", BaseFont.EMBEDDED);
                                     pageContentByte.setFontAndSize(baseFont, 8.0F);
-//                                    pageContentByte.showTextAligned(0, text, x + (width * 0.4F), y - (height * 0.3F), 0.0F);
 
+                                    pageContentByte.beginText();
+//                                    pageContentByte.showTextAligned(0, text, x + (width * 0.4F), y - (height * 0.3F), 0.0F);
                                     pageContentByte.showTextAligned(0, text, x + (width * 0.4F), y - 10, 0.0F);
+                                    pageContentByte.endText();
 
 
                                     System.out.println("Barcode created!");

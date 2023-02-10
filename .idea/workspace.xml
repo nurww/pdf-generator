@@ -11,39 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0f33e9e9-66c0-4a9b-9957-451ac5385129" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/compressed.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00001.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00001.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00002.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00002.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00003.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00003.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00004.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00004.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/pdf_results_directory/00005.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/source/pdf_results_directory/00005.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/resultDir/compressed.zip" beforeDir="false" afterPath="$PROJECT_DIR$/source/resultDir/compressed.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/PdfGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nis/edu/kz/pdfgenerator/PdfGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/arial.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/App.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/BarcodeConfigurator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/Configurator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/InputConfigurator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/PdfGenerator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/exceptions/CellIsNullException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/fileUploader/Storage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/fileUploader/StorageException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/fileUploader/StorageFileNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/fileUploader/StorageProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/fileUploader/StorageService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/nis/edu/kz/pdfgenerator/main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/georgia.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tahoma.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/timesnewromanps_italicmt.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/timesnewromanpsmt.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/trebuc.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/verdana.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/pdf-generator-jar-with-dependencies.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/pdf-generator.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +79,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/User/Documents/pdf-generator",
+    "last_opened_file_path": "C:/Users/toktarkhan_n/Documents/NetBeansProjects/pdf-generator",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -267,6 +235,7 @@
       <workItem from="1675272025560" duration="4000" />
       <workItem from="1675272034838" duration="19860000" />
       <workItem from="1675498028024" duration="2607000" />
+      <workItem from="1676000744439" duration="122000" />
     </task>
     <servers />
   </component>
